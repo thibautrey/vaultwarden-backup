@@ -135,7 +135,7 @@ function upload() {
         exit 1
     fi
 
-    rclone ${RCLONE_GLOBAL_FLAG} copy "${UPLOAD_FILE}" "${RCLONE_REMOTE}"
+    rclone ${RCLONE_GLOBAL_FLAG} copy "${UPLOAD_FILE}" "${RCLONE_REMOTE}:${S3_BUCKET}"
     if [[ $? != 0 ]]; then
         color red "upload failed"
 
@@ -155,7 +155,7 @@ function clear_history() {
         do
             color yellow "deleting \"${RCLONE_DELETE_FILE}\""
 
-            rclone ${RCLONE_GLOBAL_FLAG} delete "${RCLONE_REMOTE}/${RCLONE_DELETE_FILE}"
+            rclone ${RCLONE_GLOBAL_FLAG} delete "${RCLONE_REMOTE}:${S3_BUCKET}/${RCLONE_DELETE_FILE}"
             if [[ $? != 0 ]]; then
                 color red "delete \"${RCLONE_DELETE_FILE}\" failed"
             fi
